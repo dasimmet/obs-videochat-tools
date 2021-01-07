@@ -4,10 +4,10 @@ MODULES_LOAD_DIR ?= ${ETC_DIR}/modules-load.d
 MODPROBE_DIR ?= ${ETC_DIR}/modprobe.d
 
 help:
-	ls
+	echo "make obssink|install"
 
 obssink:
-	./obssink.sh
+	./mkobssink.sh
 
 install:
 	install -m 644 obs_video_sink_load.conf ${MODULES_LOAD_DIR}/obsloopback.conf
