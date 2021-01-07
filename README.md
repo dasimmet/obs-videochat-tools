@@ -16,7 +16,7 @@ Once OBS is set up, OBSSource can be selected in your video chat application.
 ## mkobssink
 For audio sharing support, some additional modules for pulseaudio have to be loaded:
 ```bash
-make obssink
+make start
 ```
 this creates an `OBSCombineSink` and `OBSMicSource`.
 Any application sending audio to OBSCombineSink will play both on your primary Output and Loopback to
@@ -32,4 +32,6 @@ The Schema below shows how audio routing is realized:
 
 ![Audio Schema](audio_routing.jpg?raw=true "Audio Schema")
 
-re-running `make obssink` will unload all involved modules and reload them.
+
+re-running `make start` will unload all involved modules and reload them.
+`make stop` will unload all involved modules.

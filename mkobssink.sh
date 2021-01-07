@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -e
 # Get the index of the selected sink:
 getsink() {
     pacmd list-sinks   |grep "* index:"|sed "s/.*index: //"
@@ -13,27 +14,28 @@ findModByName(){
 }
 
 removeModByName(){
-SLP=false
-   
 for mod in $(pactl list|grep -C1 "Name: module-loopback"|grep -B2 "sink=$1"|grep "Module #"|sed "s/.*Module #//")
 do
     if ! [ -n "$mod" ];then continue;fi
 
-    echo "Removing $mod For Name $1"
-    pactl unload-module $mod
+    echo "Removing Loopback $mod For Name $1"
+    pactl unload-module "$mod"
 done
 for mod in $(findModByName $1)
 do
     if ! [ -n "$mod" ];then continue;fi
 
     echo "Removing $mod For Name $1"
-    pactl unload-module $mod
+    pactl unload-module "$mod"
 
 done
 }
 removeModByName OBSMicSource
 removeModByName OBSCombineSink
 removeModByName OBSMicSink
+
+
+[ "$1" == "stop" ] && exit 0
 
 SINK="$(getsink)"
 SOURCE="$(getsource)"

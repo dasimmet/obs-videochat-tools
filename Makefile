@@ -6,8 +6,11 @@ MODPROBE_DIR ?= ${ETC_DIR}/modprobe.d
 help:
 	echo "make obssink|install"
 
-obssink:
+start:
 	./mkobssink.sh
+
+stop:
+	./mkobssink.sh stop
 
 install:
 	install -m 644 obs_video_sink_load.conf ${MODULES_LOAD_DIR}/obsloopback.conf
